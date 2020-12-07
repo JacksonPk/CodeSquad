@@ -14,7 +14,50 @@
  */
 
 
+/*
+ 구현로직 생각하기.
+ 1. 단어입력을 받기
+ 2. 띄어쓰기를 바탕으로 총 3개의 단어를 받기.
+ */
+//입력방식 : ReadLine() 함수
+
 import Foundation
 
-//print("Hello, World!")
+/* 인풋단어 체크하는 함수*/
+func checkReadLine(inputWords : String) ->Void{
+    let arrayWord = inputWords.components(separatedBy: " ")
+    
+    if(arrayWord.count != 3){ //입력해야 하는 단어는 총 3개이므로
+        print("Wrong Input Count")
+        return
+    }
+
+    let word = String(arrayWord[0])
+    let num : Int = Int(arrayWord[1]) ?? 101 //타입캐스팅시에 int형이 아니면 범위에 벗어난 값을 주어 input오류를 나게 함.
+    let direction = String(arrayWord[2])
+    
+    //num과 direction을 체크하기.
+    if(num >= -100 && num<100){
+        if(direction == "l" || direction == "L" || direction == "r" || direction == "R"){
+            print(word)
+            print(num)
+            print(direction)
+        }else{
+            print("Wrong direction input")
+            return
+        }
+    }else{
+        print("Wrong num input")
+        return
+    }
+}
+
+
+while(true){
+    let inputWords = readLine()
+    if let inputWords = inputWords{
+        checkReadLine(inputWords: inputWords)
+    }
+}
+
 
