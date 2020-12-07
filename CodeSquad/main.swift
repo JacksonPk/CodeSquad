@@ -23,41 +23,73 @@
 
 import Foundation
 
+/*class Vars{
+    var word : String
+    var num : Int
+    var direction : String
+
+    init(word:String, num:Int, direction:String) {
+        self.word = word
+        self.num = num
+        self.direction = direction
+    }
+
+    func printVars(){
+        print("word = "+self.word+" num = "+self.num+" direction = "+self.direction)
+        //print("hello World")
+    }
+}*/
+
 /* 인풋단어 체크하는 함수*/
-func checkReadLine(inputWords : String) ->Void{
-    let arrayWord = inputWords.components(separatedBy: " ")
-    
-    if(arrayWord.count != 3){ //입력해야 하는 단어는 총 3개이므로
-        print("Wrong Input Count")
-        return
-    }
+func checkReadLine() ->(word: String, num: Int, direction: String){
 
-    let word = String(arrayWord[0])
-    let num : Int = Int(arrayWord[1]) ?? 101 //타입캐스팅시에 int형이 아니면 범위에 벗어난 값을 주어 input오류를 나게 함.
-    let direction = String(arrayWord[2])
-    
-    //num과 direction을 체크하기.
-    if(num >= -100 && num<100){
-        if(direction == "l" || direction == "L" || direction == "r" || direction == "R"){
-            print(word)
-            print(num)
-            print(direction)
-        }else{
-            print("Wrong direction input")
-            return
+    while(true){
+        
+        let inputWords = readLine()
+        
+        if let inputWords = inputWords{
+            let arrayWord = inputWords.components(separatedBy: " ")
+            
+            if(arrayWord.count != 3){ //입력해야 하는 단어는 총 3개이므로
+                print("Wrong Input Count")
+                continue
+            }
+            
+            let word = String(arrayWord[0])
+            let num : Int = Int(arrayWord[1]) ?? 101 //타입캐스팅시에 int형이 아니면 범위에 벗어난 값을 주어 input오류를 나게 함.
+            let direction = String(arrayWord[2])
+            
+            //num과 direction을 체크하기.
+            if(num >= -100 && num<100){
+                if(direction == "l" || direction == "L" || direction == "r" || direction == "R"){
+                
+                    return (word,num,direction)
+                    
+                }else{
+                    print("Wrong direction input")
+                    continue
+                }
+            }else{
+                print("Wrong num input")
+                continue
+            }
         }
-    }else{
-        print("Wrong num input")
-        return
     }
+    
 }
-
 
 while(true){
-    let inputWords = readLine()
-    if let inputWords = inputWords{
-        checkReadLine(inputWords: inputWords)
-    }
+    var word : String
+    var num : Int
+    var direction : String
+    //var var : Vars = Vars()
+    //let inputWords = readLine()
+    
+    (word,num,direction) = checkReadLine()
+    print(word,num,direction)
+        //inputVar.printVars()
+    
 }
+    
 
 
