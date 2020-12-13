@@ -33,7 +33,7 @@ extension String{ //regix 정규식 문법 관련 함수
 
 
 class Cube{
-
+    
     var myCube = [[String]]() //2차원 문자열 배열 생성
     //var inputChar : String = ""
     init(){
@@ -41,11 +41,51 @@ class Cube{
     }
     
     func switchCube(inputWords : String){
-//       var disassembleChars : [Character] = []
+        
+        
         var disassembleStrs : [String] = []
         
         disassembleStrs = inputWords.getArrayAfterRegex(regex: "[URLB][/']?")
+        
         print(disassembleStrs)
+        
+        printMyCube()
+        for item in disassembleStrs { //disassembleStrs 순서대로 큐브를 바꾼다.
+            
+            switch item {
+            case "U":
+                print("U : 가장 윗줄을 왼쪽으로 한 칸 밀기" )
+                (self.myCube[0][0], self.myCube[0][1], self.myCube[0][2]) = (self.myCube[0][1], self.myCube[0][2], self.myCube[0][0])
+                
+            case "U'":
+                print("U' : 가장 윗줄을 오른쪽으로 한 칸 밀기" ) //a, b, c -> c,a,b
+                (self.myCube[0][0], self.myCube[0][1], self.myCube[0][2]) = (self.myCube[0][2], self.myCube[0][0], self.myCube[0][1])
+            case "R":
+                print("R : 가장 오른쪽 줄을 위로 한 칸 밀기" )
+                (self.myCube[0][2], self.myCube[1][2], self.myCube[2][2]) = (self.myCube[1][2], self.myCube[2][2], self.myCube[0][2])
+            case "R'":
+                print("R' : 가장 오른쪽 줄을 아래로 한 칸 밀기" )
+                (self.myCube[0][2], self.myCube[1][2], self.myCube[2][2]) = (self.myCube[2][2], self.myCube[0][2], self.myCube[1][2])
+            case "L":
+                print("L : 가장 왼쪽 줄을 아래로 한 칸 밀기" )
+                (self.myCube[0][0], self.myCube[1][0], self.myCube[2][0]) = (self.myCube[2][0], self.myCube[0][0], self.myCube[1][0])
+            case "L'":
+                print("L' : 가장 왼쪽 줄을 위로 한 칸 밀기" )
+                (self.myCube[0][0], self.myCube[1][0], self.myCube[2][0]) = (self.myCube[1][0], self.myCube[2][0], self.myCube[0][0])
+            case "B":
+                print("B : 가장 아랫줄을 오른쪽으로 한 칸 밀기 " )
+                (self.myCube[2][0], self.myCube[2][1], self.myCube[2][2]) = (self.myCube[2][2], self.myCube[2][0], self.myCube[2][1])
+            case "B'":
+                print("B' : 가장 아랫줄을 왼쪽으로 한 칸 밀기" )
+                (self.myCube[2][0], self.myCube[2][1], self.myCube[2][2]) = (self.myCube[2][1], self.myCube[2][2], self.myCube[2][0])
+        
+            default:
+                print("default")
+            }
+            
+            printMyCube()
+        }
+        //print(disassembleStrs)
         //정규식을 사용해서 문자를 자른다. ' 가 옵션이다.
         //printMyCube()
     }
@@ -60,12 +100,12 @@ class Cube{
                 if(inputWords == "Q" || inputWords == "q"){
                     exit(0)
                 }else{
-                
+                    
                     let inputWordsUpperCase = inputWords.uppercased()
                     let charset = CharacterSet(charactersIn: "URLB'") //받아야 하는 input이 다음 캐릭터셋 안에 있어야만 한다.
                     
                     if((inputWordsUpperCase.rangeOfCharacter(from: charset)) != nil){
-                        print(inputWordsUpperCase)
+                        //print(inputWordsUpperCase)
                         switchCube(inputWords: inputWordsUpperCase)
                         
                     }else{
@@ -73,7 +113,7 @@ class Cube{
                         continue
                     }
                     
-                
+                    
                 }
                 
             }
@@ -97,6 +137,6 @@ class Cube{
 
 let mycube = Cube()
 mycube.checkReadLine()
-//mycube.printMyCube()
+
 
 
