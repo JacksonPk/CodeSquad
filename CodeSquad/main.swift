@@ -40,8 +40,8 @@ class Cube{
     var countRoatation : Int = 0
     //var inputChar : String = ""
     init(){
-        //        self.myCube = [[["B","B","B"],["B","B","B"],["B","B","B"]],[["W","W","W"],["W","W","W"],["W","W","W"]],[["O","O","O"],["O","O","O"],["O","O","O"]],[["G","G","G"],["G","G","G"],["G","G","G"]],[["Y","Y","Y"],["Y","Y","Y"],["Y","Y","Y"]],[["R","R","R"],["R","R","R"],["R","R","R"]]]
-        self.myCube = [[["W1","W2","W3"],["W4","WC","W6"],["W7","W8","W9"]],[["O1","O2","O3"],["O4","OC","O6"],["O7","O8","O9"]],[["G1","G2","G3"],["G4","GC","G6"],["G7","G8","G9"]],[["R1","R2","R3"],["R4","RC","R6"],["R7","R8","R9"]],[["B1","B2","B3"],["B4","BC","B6"],["B7","B8","B9"]],[["Y1","Y2","Y3"],["Y4","YC","Y6"],["Y7","Y8","Y9"]]]
+        self.myCube = [[["B","B","B"],["B","B","B"],["B","B","B"]],[["W","W","W"],["W","W","W"],["W","W","W"]],[["O","O","O"],["O","O","O"],["O","O","O"]],[["G","G","G"],["G","G","G"],["G","G","G"]],[["Y","Y","Y"],["Y","Y","Y"],["Y","Y","Y"]],[["R","R","R"],["R","R","R"],["R","R","R"]]]
+        //        self.myCube = [[["W1","W2","W3"],["W4","WC","W6"],["W7","W8","W9"]],[["O1","O2","O3"],["O4","OC","O6"],["O7","O8","O9"]],[["G1","G2","G3"],["G4","GC","G6"],["G7","G8","G9"]],[["R1","R2","R3"],["R4","RC","R6"],["R7","R8","R9"]],[["B1","B2","B3"],["B4","BC","B6"],["B7","B8","B9"]],[["Y1","Y2","Y3"],["Y4","YC","Y6"],["Y7","Y8","Y9"]]]
         
     }
     func switchCubeCenter(index : Int, direction : String){ //가장 윗면을 기준으로 나머지 변경
@@ -156,7 +156,7 @@ class Cube{
                 print("D : 가장 밑 큐브 면 시계방향 회전" )
                 switchCubeCenter(index : 5 , direction: "R")
                 (self.myCube[1][2],self.myCube[2][2],self.myCube[3][2],self.myCube[4][2]) =
-                (self.myCube[4][2],self.myCube[1][2],self.myCube[2][2],self.myCube[3][2])
+                    (self.myCube[4][2],self.myCube[1][2],self.myCube[2][2],self.myCube[3][2])
                 
                 
             case "D'":
@@ -164,7 +164,7 @@ class Cube{
                 
                 switchCubeCenter(index : 5 , direction: "L")
                 (self.myCube[1][2],self.myCube[2][2],self.myCube[3][2],self.myCube[4][2]) =
-                (self.myCube[2][2],self.myCube[3][2],self.myCube[4][2],self.myCube[1][2])
+                    (self.myCube[2][2],self.myCube[3][2],self.myCube[4][2],self.myCube[1][2])
                 
             default:
                 print("default")
