@@ -44,19 +44,19 @@ class Cube{
         self.myCube = [[["W1","W2","W3"],["W4","WC","W6"],["W7","W8","W9"]],[["O1","O2","O3"],["O4","OC","O6"],["O7","O8","O9"]],[["G1","G2","G3"],["G4","GC","G6"],["G7","G8","G9"]],[["R1","R2","R3"],["R4","RC","R6"],["R7","R8","R9"]],[["B1","B2","B3"],["B4","BC","B6"],["B7","B8","B9"]],[["Y1","Y2","Y3"],["Y4","YC","Y6"],["Y7","Y8","Y9"]]]
         
     }
-    func switchCubeCenter(direction : String){ //가장 윗면을 기준으로 나머지 변경
+    func switchCubeCenter(index : Int, direction : String){ //가장 윗면을 기준으로 나머지 변경
         
         if(direction == "R"){ //clock
-            (self.myCube[0][0][0], self.myCube[0][0][1], self.myCube[0][0][2], self.myCube[0][1][0], self.myCube[0][1][2], self.myCube[0][2][0], self.myCube[0][2][1], self.myCube[0][2][2]) =
-                (self.myCube[0][2][0],self.myCube[0][1][0],self.myCube[0][0][0], self.myCube[0][2][1], self.myCube[0][0][1], self.myCube[0][2][2], self.myCube[0][1][2], self.myCube[0][0][2])
+            (self.myCube[index][0][0], self.myCube[index][0][1], self.myCube[index][0][2], self.myCube[index][1][0], self.myCube[index][1][2], self.myCube[index][2][0], self.myCube[index][2][1], self.myCube[index][2][2]) =
+                (self.myCube[index][2][0],self.myCube[index][1][0],self.myCube[index][0][0], self.myCube[index][2][1], self.myCube[index][0][1], self.myCube[index][2][2], self.myCube[index][1][2], self.myCube[index][0][2])
             
-            (self.myCube[1][0],self.myCube[2][0],self.myCube[3][0],self.myCube[4][0])=(self.myCube[2][0],self.myCube[3][0],self.myCube[4][0],self.myCube[1][0])
+            
             
         }else if(direction == "L"){//counter-clock
-            (self.myCube[0][0][0], self.myCube[0][0][1], self.myCube[0][0][2], self.myCube[0][1][0], self.myCube[0][1][2], self.myCube[0][2][0], self.myCube[0][2][1], self.myCube[0][2][2]) =
-                (self.myCube[0][0][2],self.myCube[0][1][2],self.myCube[0][2][2], self.myCube[0][0][1], self.myCube[0][2][1], self.myCube[0][0][0], self.myCube[0][1][0], self.myCube[0][2][0])
+            (self.myCube[index][0][0], self.myCube[index][0][1], self.myCube[index][0][2], self.myCube[index][1][0], self.myCube[index][1][2], self.myCube[index][2][0], self.myCube[index][2][1], self.myCube[index][2][2]) =
+                (self.myCube[index][0][2],self.myCube[index][1][2],self.myCube[index][2][2], self.myCube[index][0][1], self.myCube[index][2][1], self.myCube[index][0][0], self.myCube[index][1][0], self.myCube[index][2][0])
             
-            (self.myCube[1][0],self.myCube[2][0],self.myCube[3][0],self.myCube[4][0])=(self.myCube[4][0],self.myCube[1][0],self.myCube[2][0],self.myCube[3][0])
+            
         }
     }
     func switchCube(inputWords : String){
@@ -77,11 +77,13 @@ class Cube{
                 //1. 가장 윗면 바꾸기. (B 기준)
                 //2. 윗면에 포함된 중앙4면을 바꾸기
                 print("U : 가장 위 큐브 면 시계방향 회전" )
-                switchCubeCenter(direction: "R")
+                switchCubeCenter(index : 0, direction: "R")
+                (self.myCube[1][0],self.myCube[2][0],self.myCube[3][0],self.myCube[4][0])=(self.myCube[2][0],self.myCube[3][0],self.myCube[4][0],self.myCube[1][0])
                 
             case "U'":
                 print("U : 가장 위 큐브 면 시계반대방향 회전" )
-                switchCubeCenter(direction: "L")
+                switchCubeCenter(index : 0, direction: "L")
+                (self.myCube[1][0],self.myCube[2][0],self.myCube[3][0],self.myCube[4][0])=(self.myCube[4][0],self.myCube[1][0],self.myCube[2][0],self.myCube[3][0])
                 
             case "R":
                 //1. 큐브 자체를 왼쪽으로 돌림
@@ -89,88 +91,80 @@ class Cube{
                 //3. 똑같이 switch를 한다
                 //4. 다시 B가 윗면으로 돌아오게 바꾼다.
                 print("R' : 가장 오른쪽 큐브 면 시계방향 회전" )
-                (self.myCube[0],self.myCube[1],self.myCube[3],self.myCube[5]) = (self.myCube[3],self.myCube[0],self.myCube[5],self.myCube[1])
                 
-                switchCubeCenter(direction: "R")
+                switchCubeCenter(index : 3, direction: "R")
                 
-                (self.myCube[0],self.myCube[1],self.myCube[3],self.myCube[5]) = (self.myCube[1],self.myCube[5],self.myCube[0],self.myCube[3])
+                (self.myCube[0][0][2],self.myCube[0][1][2],self.myCube[0][2][2], self.myCube[2][0][2],self.myCube[2][1][2],self.myCube[2][2][2],self.myCube[4][0][0],self.myCube[4][1][0],self.myCube[4][2][0],self.myCube[5][0][2],self.myCube[5][1][2],self.myCube[5][2][2]) = (self.myCube[2][0][2],self.myCube[2][1][2],self.myCube[2][2][2],self.myCube[5][0][2],self.myCube[5][1][2],self.myCube[5][2][2],self.myCube[0][0][2],self.myCube[0][1][2],self.myCube[0][2][2],self.myCube[4][0][0],self.myCube[4][1][0],self.myCube[4][2][0])
+                
+                
                 
                 
             case "R'":
                 print("R' : 가장 오른쪽 큐브 면 시계반대방향 회전" )
-                (self.myCube[0],self.myCube[1],self.myCube[3],self.myCube[5]) = (self.myCube[3],self.myCube[0],self.myCube[5],self.myCube[1])
                 
-                switchCubeCenter(direction: "L")
+                switchCubeCenter(index : 3, direction: "L")
                 
-                (self.myCube[0],self.myCube[1],self.myCube[3],self.myCube[5]) = (self.myCube[1],self.myCube[5],self.myCube[0],self.myCube[3])
+                (self.myCube[0][0][2],self.myCube[0][1][2],self.myCube[0][2][2],self.myCube[2][0][2],self.myCube[2][1][2],self.myCube[2][2][2],self.myCube[4][0][0],self.myCube[4][1][0],self.myCube[4][2][0],self.myCube[5][0][2],self.myCube[5][1][2],self.myCube[5][2][2]) = (self.myCube[4][0][0],self.myCube[4][1][0],self.myCube[4][2][0],self.myCube[0][0][2],self.myCube[0][1][2],self.myCube[0][2][2],self.myCube[5][0][2],self.myCube[5][1][2],self.myCube[5][2][2],self.myCube[2][0][2],self.myCube[2][1][2],self.myCube[2][2][2])
+                
+                
                 
             case "L":
                 print("L : 가장 왼쪽 큐브 면 시계방향 회전" )
-                (self.myCube[0],self.myCube[1],self.myCube[3],self.myCube[5]) = (self.myCube[1],self.myCube[5],self.myCube[0],self.myCube[3])
                 
-                switchCubeCenter(direction: "R")
-                
-                (self.myCube[0],self.myCube[1],self.myCube[3],self.myCube[5]) = (self.myCube[3],self.myCube[0],self.myCube[5],self.myCube[1])
+                switchCubeCenter(index : 1, direction: "R")
+                (self.myCube[0][0][0],self.myCube[0][1][0],self.myCube[0][2][0],self.myCube[2][0][0],self.myCube[2][1][0],self.myCube[2][2][0],self.myCube[4][0][2],self.myCube[4][1][2],self.myCube[4][2][2],self.myCube[5][0][0],self.myCube[5][1][0],self.myCube[5][2][0]) = (self.myCube[4][0][2],self.myCube[4][1][2],self.myCube[4][2][2],self.myCube[0][0][0],self.myCube[0][1][0],self.myCube[0][2][0],self.myCube[5][0][0],self.myCube[5][1][0],self.myCube[5][2][0],self.myCube[2][0][0],self.myCube[2][1][0],self.myCube[2][2][0])
                 
             case "L'":
-                print("L' : 가장 오른쪽 큐브 면 시계반대방향 회전" )
-                (self.myCube[0],self.myCube[1],self.myCube[3],self.myCube[5]) = (self.myCube[1],self.myCube[5],self.myCube[0],self.myCube[3])
                 
-                switchCubeCenter(direction: "L")
-                
-                (self.myCube[0],self.myCube[1],self.myCube[3],self.myCube[5]) = (self.myCube[3],self.myCube[0],self.myCube[5],self.myCube[1])
+                switchCubeCenter(index : 1, direction: "L")
+                (self.myCube[0][0][0],self.myCube[0][1][0],self.myCube[0][2][0],self.myCube[2][0][0],self.myCube[2][1][0],self.myCube[2][2][0],self.myCube[4][0][2],self.myCube[4][1][2],self.myCube[4][2][2],self.myCube[5][0][0],self.myCube[5][1][0],self.myCube[5][2][0]) = (self.myCube[2][0][0],self.myCube[2][1][0],self.myCube[2][2][0],self.myCube[5][0][0],self.myCube[5][1][0],self.myCube[5][2][0],self.myCube[0][0][0],self.myCube[0][1][0],self.myCube[0][2][0],self.myCube[4][0][2],self.myCube[4][1][2],self.myCube[2][2][2])
                 
             case "F":
                 print("F : 가장 앞 큐브 면 시계방향 회전" )
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[2],self.myCube[5],self.myCube[0],self.myCube[4])
                 
-                switchCubeCenter(direction: "L")
+                switchCubeCenter(index : 2 , direction: "R")
                 
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[4],self.myCube[0],self.myCube[5],self.myCube[2])
+                (self.myCube[0][2][0],self.myCube[0][2][1],self.myCube[0][2][2],self.myCube[1][0][2],self.myCube[1][1][2],self.myCube[1][2][2],self.myCube[5][0][0],self.myCube[5][0][1],self.myCube[5][0][2],self.myCube[3][0][0],self.myCube[3][1][0],self.myCube[3][2][0]) = (self.myCube[1][0][2],self.myCube[1][1][2],self.myCube[1][2][2],self.myCube[5][0][0],self.myCube[5][0][1],self.myCube[5][0][2],self.myCube[3][0][0],self.myCube[3][1][0],self.myCube[3][2][0],self.myCube[0][2][0],self.myCube[0][2][2],self.myCube[0][2][2])
+                
                 
             case "F'":
                 print("F' : 가장 앞 큐브 면 시계반대방향 회전" )
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[2],self.myCube[5],self.myCube[0],self.myCube[4])
+                switchCubeCenter(index : 2 , direction: "L")
                 
-                switchCubeCenter(direction: "R")
+                (self.myCube[0][2][0],self.myCube[0][2][1],self.myCube[0][2][2],self.myCube[1][0][2],self.myCube[1][1][2],self.myCube[1][2][2],self.myCube[3][0][0],self.myCube[3][1][0],self.myCube[3][2][0],self.myCube[5][0][0],self.myCube[5][0][1],self.myCube[5][0][2]) = (self.myCube[3][0][0],self.myCube[3][1][0],self.myCube[3][2][0],self.myCube[0][2][0],self.myCube[0][2][1],self.myCube[0][2][2],self.myCube[5][0][0],self.myCube[5][0][1],self.myCube[5][0][2],self.myCube[1][0][2],self.myCube[1][1][2],self.myCube[1][2][2])
                 
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[4],self.myCube[0],self.myCube[5],self.myCube[2])
+                
                 
             case "B":
                 print("B : 가장 뒷 큐브 면 시계방향 회전" )
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[4],self.myCube[0],self.myCube[5],self.myCube[2])
+                switchCubeCenter(index : 4 , direction: "L")
                 
-                switchCubeCenter(direction: "L")
+                (self.myCube[0][0][0],self.myCube[0][0][1],self.myCube[0][0][2],self.myCube[1][0][0],self.myCube[1][1][0],self.myCube[1][2][0],self.myCube[3][0][2],self.myCube[3][1][2],self.myCube[3][2][2],self.myCube[5][2][0],self.myCube[5][2][1],self.myCube[5][2][2])=(self.myCube[3][0][2],self.myCube[3][1][2],self.myCube[3][2][2],self.myCube[0][0][0],self.myCube[0][0][1],self.myCube[0][0][2],self.myCube[5][2][0],self.myCube[5][2][1],self.myCube[5][2][2],self.myCube[1][0][0],self.myCube[1][1][0],self.myCube[1][2][0])
                 
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[2],self.myCube[5],self.myCube[0],self.myCube[4])
+                
                 
             case "B'":
                 print("B' : 가장 뒷 큐브 면 시계반대방향 회전" )
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[4],self.myCube[0],self.myCube[5],self.myCube[2])
+                switchCubeCenter(index : 4 , direction: "R")
                 
-                switchCubeCenter(direction: "R")
                 
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[2],self.myCube[5],self.myCube[0],self.myCube[4])
+                (self.myCube[0][0][0],self.myCube[0][0][1],self.myCube[0][0][2],self.myCube[1][0][0],self.myCube[1][1][0],self.myCube[1][2][0],self.myCube[3][0][2],self.myCube[3][1][2],self.myCube[3][2][2],self.myCube[5][2][0],self.myCube[5][2][1],self.myCube[5][2][2])=(self.myCube[1][0][0],self.myCube[1][1][0],self.myCube[1][2][0],self.myCube[5][2][0],self.myCube[5][2][1],self.myCube[5][2][2],self.myCube[0][0][0],self.myCube[0][0][1],self.myCube[0][0][2],self.myCube[3][0][2],self.myCube[3][1][2],self.myCube[3][2][2])
+                
+                
                 
             case "D":
                 print("D : 가장 밑 큐브 면 시계방향 회전" )
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[4],self.myCube[0],self.myCube[5],self.myCube[2])
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[4],self.myCube[0],self.myCube[5],self.myCube[2])
+                switchCubeCenter(index : 5 , direction: "R")
+                (self.myCube[1][2],self.myCube[2][2],self.myCube[3][2],self.myCube[4][2]) =
+                (self.myCube[4][2],self.myCube[1][2],self.myCube[2][2],self.myCube[3][2])
                 
-                switchCubeCenter(direction: "L")
-                
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[2],self.myCube[5],self.myCube[0],self.myCube[4])
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[2],self.myCube[5],self.myCube[0],self.myCube[4])
                 
             case "D'":
                 print("D' : 가장 뒷 큐브 면 시계반대방향 회전" )
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[4],self.myCube[0],self.myCube[5],self.myCube[2])
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[4],self.myCube[0],self.myCube[5],self.myCube[2])
                 
-                switchCubeCenter(direction: "R")
-                
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[2],self.myCube[5],self.myCube[0],self.myCube[4])
-                (self.myCube[0],self.myCube[2],self.myCube[4],self.myCube[5]) = (self.myCube[2],self.myCube[5],self.myCube[0],self.myCube[4])
+                switchCubeCenter(index : 5 , direction: "L")
+                (self.myCube[1][2],self.myCube[2][2],self.myCube[3][2],self.myCube[4][2]) =
+                (self.myCube[2][2],self.myCube[3][2],self.myCube[4][2],self.myCube[1][2])
                 
             default:
                 print("default")
@@ -234,6 +228,5 @@ let mycube = Cube()
 
 mycube.printMyCube()
 mycube.checkReadLine()
-
 
 
